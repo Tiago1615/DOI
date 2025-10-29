@@ -1,0 +1,5 @@
+# Igonorar archivos pdf
+*.pdf
+
+# Ignorar archivos de docx
+*.docx
