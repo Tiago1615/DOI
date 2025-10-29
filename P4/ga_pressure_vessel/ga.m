@@ -22,22 +22,22 @@ restart();
 nvars = 4;      
 
 % Límites inferior y superior
-LB = [1 1 10 10];
-UB = [99 99 200 240];
+LB = [12 12 12 12];
+UB = [60 60 60 60];
 
 % Longitud de cada gen (número de bits por variable)
 lc = zeros(nvars,1);
 
 % Variables enteras (i=1,2)
-for i=1:2
+for i=1:nvars
     lc(i) = ceil(log10(UB(i)-LB(i))/log10(2));
 end
 
 % Variables reales (i=3,4)
-pr = 6; % precisión (cifras decimales)
-for i=3:nvars
-    lc(i) = ceil(log10((UB(i)-LB(i))*10^pr)/log10(2));
-end
+% pr = 6; % precisión (cifras decimales)
+% for i=3:nvars
+%     lc(i) = ceil(log10((UB(i)-LB(i))*10^pr)/log10(2));
+% end
 
 % Longitud total del cromosoma
 lctotal = sum(lc);
@@ -46,7 +46,7 @@ lctotal = sum(lc);
                          % PARAMETROS DEL ALGORITMO 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Numero de GENERACIONES
-numgen = 1000;
+numgen = 500;
 %Numero de INDIVIDUOS de la poblacion (un numero par)
 nindg = 100;
 %¿Se aplica elitismo? (1 = sí, 0 = no)
@@ -60,7 +60,7 @@ pmut = 1/lctotal;
 %¿Cada cuántas iteraciones se escribe en pantalla la mejor solución?
 printpant = 1;
 %número de ensayos diferentes que se quieren realizar
-ensayos = 1;
+ensayos = 10;
 if ensayos > 1
     printpant = numgen + 1;
 end
@@ -83,7 +83,7 @@ disp ('-----------------------------------')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 contador=1;
 while contador<=ensayos
-    fprintf('Trial %.d: ',contador);
+    fprintf('Trial %.d: \n',contador);
     
     %Generación de la población inicial
     pop = randi([0 1], nindg, lctotal, 'logical');
@@ -123,7 +123,7 @@ while contador<=ensayos
 		     
         %Control de la impresión en pantalla del mejor
         if npp == printpant
-            fprintf(' Gen.%d: %.6f\n',gen,fmejor);
+            fprintf(' Gen.%d: %.12f\n',gen,fmejor);
             npp = 0;
         end
         
@@ -171,6 +171,7 @@ end
 %Estudio estadístico
 %-------------------
 if ensayos > 1
+    fprintf('Estoy dentro');
     [fvalmin,nmin] = statistics(ensayos,fbest,fworst,fmean,fstd,fmedian);
     mostrar_mejor(best(nmin,:));
 end
