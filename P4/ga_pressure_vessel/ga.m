@@ -171,7 +171,6 @@ end
 %Estudio estadístico
 %-------------------
 if ensayos > 1
-    fprintf('Estoy dentro');
     [fvalmin,nmin] = statistics(ensayos,fbest,fworst,fmean,fstd,fmedian);
     mostrar_mejor(best(nmin,:));
 end

@@ -3,14 +3,14 @@ function [fval]=fitness_function(nvars, nindg, pop, lc, LB, UB)
     fval = zeros(nindg,1);
     
     for ni = 1:nindg
-        % Decodificamos el cromosoma binario a valores reales
+        % Decodificamos el cromosoma binario a valores enteros
         x = decode(pop(ni,:), nvars, lc, LB, UB);
     
         % Ajuste de variables enteras (Ts, Th)
         %x(1) = x(1) * 0.0625;
         %x(2) = x(2) * 0.0625;
     
-        % --- Función objetivo ---
+        % Función objetivo
         fval(ni) = ( (1/6.931) - (x(1)*x(2)) / (x(3)*x(4)) )^2;
     
         % Restricciones

@@ -32,13 +32,23 @@ function x = decode(chrom, nvars, lc, LB, UB)
     % Decodifica un cromosoma binario a valores enteros dentro de [LB, UB]
     
     x = zeros(1, nvars);
+
+    % Variable auxiliar para controlar la posición dentro del cromosoma
     pos = 0;
     
     for i = 1:nvars
-        bits = chrom(pos+1 : pos+lc(i));
+        % Extraer los bits
+        bits = chrom(pos+1 : pos+lc(i)); % chrom(pos+1 : pos+lc(i)) selecciona la subcadena binaria
+
+        % Actualiza la posición de lectura para la siguiente variable
         pos = pos + lc(i);
     
+        % Convierte la secuencia binaria en un valor entero
+        % polyval(bits,2) evalúa el polinomio con base 2
         val = polyval(bits, 2);
+
+        % Escalar el valor decimal al rango real [LB(i), UB(i)] y luego se 
+        % redondea para obtener un valor entero válido
         x(i) = round(LB(i) + val * (UB(i) - LB(i)) / (2^lc(i) - 1));
     end
 end
