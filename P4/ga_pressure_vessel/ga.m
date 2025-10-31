@@ -123,14 +123,14 @@ while contador<=ensayos
 		     
         %Control de la impresión en pantalla del mejor
         if npp == printpant
-            fprintf(' Gen.%d: %.12f\n',gen,fmejor);
+            fprintf(' Gen.%d: %.12e\n',gen,fmejor);
             npp = 0;
         end
         
 	    %Seleccion: este proceso parte de los individuos de pop,
         %           realiza la selección por torneo y deposita la copia 
         %           de los individuos seleccionados en copia
-        [copia] = torneo(nuintor, nindg, pop);
+        [copia] = torneo(nuintor, lctotal, nindg, pop);
         
         %Cruce: este proceso parte de los individuos de copia,
         %           los cruza y deposita los nuevos individuos en pop 
